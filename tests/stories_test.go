@@ -21,6 +21,7 @@ func SetUpRouter() *gin.Engine {
 
 func SetUpDatabase() *gorm.DB {
 	db, _ := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db.Migrator().DropTable(&models.Story{}, &models.User{})
 	db.AutoMigrate(&models.Story{}, &models.User{})
 	return db
 }

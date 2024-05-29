@@ -39,12 +39,14 @@ func TestLoginUser(t *testing.T) {
 		routes.Login(c, db)
 	})
 
+	// Register the user first
 	user := `{"username":"testuser","password":"testpass"}`
 	req, _ := http.NewRequest("POST", "/register", strings.NewReader(user))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
+	// Now login with the same user
 	req, _ = http.NewRequest("POST", "/login", strings.NewReader(user))
 	req.Header.Set("Content-Type", "application/json")
 	w = httptest.NewRecorder()
